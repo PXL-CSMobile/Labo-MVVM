@@ -57,8 +57,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="ViewModels\CommandsViewModel.cs" />
-	  <Compile Remove="ViewModels\PropertyViewModel.cs" />
+	  <MauiXaml Include="MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -72,9 +73,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\TodoListPage.xaml">
+	  <None Update="MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+	  </None>
 	</ItemGroup>
 
 </Project>

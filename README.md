@@ -9,11 +9,114 @@ In dit labo maken we een eenvoudige TODO applicatie, gebruik makend van het MVVM
 - Maak een nieuwe *ContentPage* aan in deze folder: *TodoListPage*
 - Zorg dat deze pagina getoond wordt als startpagina van de applicatie
 
+```
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+             x:Class="Todo.UI.Pages.TodoListPage"
+             Title="TodoListPage"
+             Shell.NavBarIsVisible="False">
+
+    <!--<ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="LightCoral" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        </Style>
+    </ContentPage.Resources>-->
+
+    <VerticalStackLayout Padding="20" Spacing="5">
+
+        <!-- Title -->
+        <Label Text="C# Mobile Todo List" 
+               FontSize="Title"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" 
+               Margin="0,0,0,20" />
+
+        <!-- Entry for New To-Do -->
+        <Grid ColumnDefinitions="*,Auto">
+            <Entry x:Name="NewToDoEntry"
+                   Placeholder="Enter a new to-do..."
+                   Text="">
+            </Entry>
+            <Button Grid.Column="1" CornerRadius="45" Padding="0"
+                mi:MauiIcon.Value="{mi:FluentFilled Icon=AddCircle32Filled, IconSize=Large, IconColor={StaticResource White}}" />
+        </Grid>
+
+        <!-- List of To-Dos -->
+        <CollectionView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate >
+                        
+                    <Grid ColumnDefinitions="Auto,*">
+                        <CheckBox IsChecked="True" />
+                        <Label Grid.Column="1" 
+                            Text="" 
+                            VerticalOptions="Center"
+                            Margin="10,0,0,0" />
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
+```
+
 ### ViewModel
 - Maak een nieuwe folder aan: *ViewModels*
 - Maak een nieuwe *ViewModel* aan in de folder: *TodoListViewModel*
 - Implementeer de *INotifyPropertyChanged* interface 
-- Voeg een *AddTodoCommand* toe aan het ViewModel en zorg dat dit via binding gekoppeld wordt aan de *Button* bovenaan in de View. Zorg er ook voor dat de execute eigenschap van het *Command* verwijst naar de *AddTodo()* methode
+
+```
+public class TodoListViewModel 
+{
+    private string _newTodoTitle;
+    private ObservableCollection<TodoItem> _todoItems;
+
+    public string NewTodoTitle
+    {
+        get
+        {
+            return _newTodoTitle;
+        }
+        set
+        {
+            _newTodoTitle = value;
+        }
+    }
+
+    public ObservableCollection<TodoItem> TodoItems 
+    { 
+        get => _todoItems; 
+        set 
+        {
+            _todoItems = value;
+        } 
+    }
+
+    public TodoListViewModel()
+    {
+		this.TodoItems = new ObservableCollection<TodoItem>();
+
+        //TODO: Initialise commands:
+    }
+
+    private void AddTodo()
+	{
+		//TODO: add item to TodoItems, use NewTodoTitle as Title for the new item
+		//TODO: clear the NewTodoTitle
+    }
+
+    private void DeleteTodo(TodoItem item)
+    {
+	    //TODO: remove item from TodoItems
+    }
+}
+```
 
 ### Model
 - Maak een nieuwe folder aan: *Models*
@@ -82,6 +185,7 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
 ## Deel 2 - Commands
 - Maak een nieuw *Command* property aan: *AddTodoCommand*
 - Initialiseer dit *Command* in de constructor van het ViewModel en zorg dat het command de *AddTodo()* methode uitgevoert. Vervolledig ook deze methode.
+- Zorg dat dit via binding gekoppeld wordt aan de *Button* bovenaan in de View.
 
 ![before addTodo](media/addtodo.png)
 
