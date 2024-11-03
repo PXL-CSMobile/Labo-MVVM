@@ -77,9 +77,10 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
 ![valid](media/valid.png)
 
 ## Deel 2 - Commands
-- Maak een nieuw *Command* aan: *AddTodoCommand*
+- Maak een nieuw *Command* property aan: *AddTodoCommand*
 - Initialiseer dit *Command* in de constructor van het ViewModel en zorg dat het command de *AddTodo()* methode uitgevoert
-- AddItem command toevoegen met canExecute wanneer newItemText is ingevuld
+- Maak een CanAddTodo() functie aan die *true* retourneert wanneer NewTodoTitle.Length >= 10
+- Zorg dat het *AddTodoCommand* enkel uitgevoerd kan worden wanneer *CanAddTodo()* "true" retourneert
 - Voeg een [EventToCommandBehavior](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/maui/behaviors/event-to-command-behavior) toe aan de TodoListPage om het LoadDataCommand uit te voeren wanneer de pagina geladen wordt:
 ```
 <ContentPage.Behaviors>
@@ -88,6 +89,8 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
         Command="{Binding LoadDataCommand}"/>
 </ContentPage.Behaviors>
 ```
+- Maak een *LoadDataCommand* aan in het ViewModel en zorg dat dit *Command* de methode de *LoadData()* methode uitvoert
+- Gebruik de *LoadData* methode om de TodoItems collection te initialiseren met enkele dummy items uit de TodoDb klasse
 
 ## Deel 3 - MVVM CommunityToolkit
 - Installeer de [MVVM toolkit](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/#getting-started)
@@ -101,9 +104,9 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
 > Bekijk ook zeker het [AsyncRelayCommand](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/asyncrelaycommand)!
 
 ### Model
-- Gebruik de *ObservableObject* klasse in plaats van de *INotifyPropertyChanged** interface
+- Gebruik de *ObservableObject* klasse in plaats van de *INotifyPropertyChanged* interface
 
-## Deel 4
+## Deel 4 - Relative Binding
 - Voeg een SwipeView toe aan de ItemTemplate van de CollectionView met onderstaande *LeftItems*:
 ```
 <SwipeView.LeftItems>
@@ -113,7 +116,7 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
     </SwipeItems>
 </SwipeView.LeftItems>
 ```
-- Voeg een *DeleteTodoCommand** toe aan het ViewModel en zorg dat dit via binding gekoppeld wordt aan de *SwipeItem* in de View. Zorg er ook voor dat de execute eigenschap van het *Command* verwijst naar de DeleteTodo methode
+- Voeg een *DeleteTodoCommand* toe aan het ViewModel en zorg dat dit via binding gekoppeld wordt aan de *SwipeItem* in de View. Zorg er ook voor dat de execute eigenschap van het *Command* verwijst naar de DeleteTodo methode
 - Zorg dat het *TodoItem* object als *CommandParameter* wordt meegegeven aan de *DeleteTodo*-method
 
 ![swipe](media/swipe.png)
