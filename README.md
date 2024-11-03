@@ -81,10 +81,9 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
 
 ## Deel 2 - Commands
 - Maak een nieuw *Command* property aan: *AddTodoCommand*
-- Initialiseer dit *Command* in de constructor van het ViewModel en zorg dat het command de *AddTodo()* methode uitgevoert
+- Initialiseer dit *Command* in de constructor van het ViewModel en zorg dat het command de *AddTodo()* methode uitgevoert. Vervolledig ook deze methode.
 
 ![before addTodo](media/addtodo.png)
-![after addTodo](media/addedtodo.png)
 
 - Voeg een [EventToCommandBehavior](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/maui/behaviors/event-to-command-behavior) toe aan de TodoListPage om het LoadDataCommand uit te voeren wanneer de pagina geladen wordt:
 ```
