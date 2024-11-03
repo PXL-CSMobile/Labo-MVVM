@@ -53,7 +53,7 @@
         </Grid>
 
         <!-- List of To-Dos -->
-        <CollectionView ItemsSource="{Binding TodoItems}">
+        <CollectionView ItemsSource="{Binding TodoItems}" VerticalScrollBarVisibility="Always">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:TodoItem">
                     <SwipeView>

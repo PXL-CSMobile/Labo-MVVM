@@ -44,6 +44,9 @@ public TodoListPage()
 	this.BindingContext = new TodoListViewModel();
 }
 ```
+- Configureer de *Compiled Bindings* voor zowel de *ContentPage* als de *CollectionView* in de *TodoListPage.xaml*:
+- Koppel de *ItemsSource* van de *CollectionView* aan de *TodoItems* property van het ViewModel door middel van binding
+- Voeg bindings toe voor de Views in de *ItemTemplate* van de *CollectionView* zodat de *Title* en *IsCompleted* properties van het *TodoItem* object correct weergegeven worden
 
 ### Converter
 - Maak een nieuwe folder aan: *Converters*
@@ -79,8 +82,10 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
 ## Deel 2 - Commands
 - Maak een nieuw *Command* property aan: *AddTodoCommand*
 - Initialiseer dit *Command* in de constructor van het ViewModel en zorg dat het command de *AddTodo()* methode uitgevoert
-- Maak een CanAddTodo() functie aan die *true* retourneert wanneer NewTodoTitle.Length >= 10
-- Zorg dat het *AddTodoCommand* enkel uitgevoerd kan worden wanneer *CanAddTodo()* "true" retourneert
+
+![before addTodo](media/addtodo.png)
+![after addTodo](media/addedtodo.png)
+
 - Voeg een [EventToCommandBehavior](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/maui/behaviors/event-to-command-behavior) toe aan de TodoListPage om het LoadDataCommand uit te voeren wanneer de pagina geladen wordt:
 ```
 <ContentPage.Behaviors>
@@ -94,17 +99,17 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
 
 ## Deel 3 - MVVM CommunityToolkit
 - Installeer de [MVVM toolkit](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/#getting-started)
+> Voor versie 8.3.2 heb je de allerlaatste SDK van .NET 8 nodig. Gebruik een oudere versie indien nodig.
 
-### ViewModel
-- Gebruik de MVVM Toolkit voor: 
-  - de implementatie van INotifyPropertyChanged 
-  > Tip: [ObservableObject](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/observableobject) 
-  - het gebruik van Commands
-  > Tip: [RelayCommand](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/relaycommand) 
-> Bekijk ook zeker het [AsyncRelayCommand](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/asyncrelaycommand)!
+- Gebruik het [ObservableProperty](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/generators/observableproperty)-attribuut in plaats van de *INotifyPropertyChanged* interface voor zowel het Model als het ViewModel
+- Vervang de bestaande *Commands* door gebruik te maken van het het [RelayCommand](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/generators/relaycommand)-attribuut
+- Maak een CanAddTodo() functie aan die *true* retourneert wanneer NewTodoTitle.Length >= 10, zorg dat het *AddTodoCommand* enkel uitgevoerd kan worden wanneer *CanAddTodo()* "true" retourneert.  
+  > Tip: [CanExecute](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/generators/relaycommand#enabling-and-disabling-commands)
 
-### Model
-- Gebruik de *ObservableObject* klasse in plaats van de *INotifyPropertyChanged* interface
+![false](media/cannotexecute.png)
+![true](media/canexecute.png)
+
+> Voor uitzonderlijke gevallen waarbij de attributen onvoldoende functionaliteit bieden kan de *[ObservableObject](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/observableobject)* basisklasse en het [RelayCommand](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/relaycommand) en/of [AsyncRelayCommand](https://learn.microsoft.com/nl-nl/dotnet/communitytoolkit/mvvm/asyncrelaycommand) gebruikt worden.
 
 ## Deel 4 - Relative Binding
 - Voeg een SwipeView toe aan de ItemTemplate van de CollectionView met onderstaande *LeftItems*:
@@ -116,7 +121,8 @@ TextDecorations="{Binding IsCompleted, Converter={StaticResource CompletedTextDe
     </SwipeItems>
 </SwipeView.LeftItems>
 ```
-- Voeg een *DeleteTodoCommand* toe aan het ViewModel en zorg dat dit via binding gekoppeld wordt aan de *SwipeItem* in de View. Zorg er ook voor dat de execute eigenschap van het *Command* verwijst naar de DeleteTodo methode
+- Voeg een *DeleteTodoCommand* toe aan het ViewModel en zorg dat dit via binding gekoppeld wordt aan de *SwipeItem* in de View. Zorg er ook voor dat de execute eigenschap van het *Command* verwijst naar de *DeleteTodo()* methode
 - Zorg dat het *TodoItem* object als *CommandParameter* wordt meegegeven aan de *DeleteTodo*-method
 
-![swipe](media/swipe.png)
+![before delete](media/deletetodo.png)
+![after delete](media/deletedtodo.png)
