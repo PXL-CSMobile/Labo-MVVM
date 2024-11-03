@@ -46,8 +46,8 @@ namespace Todo.UI.ViewModels
 
             //TODO: Initialise commands:
 			//LoadDataCommand = new Command(LoadData);
-   //         AddTodoCommand = new Command(AddTodo, CanAddTodo);
-   //         DeleteTodoCommand = new Command<TodoItem>(DeleteTodo);
+            //AddTodoCommand = new Command(AddTodo, CanAddTodo);
+            //DeleteTodoCommand = new Command<TodoItem>(DeleteTodo);
         }
 
 		//      public ICommand LoadDataCommand { get; set; }
