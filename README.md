@@ -42,8 +42,7 @@ In dit labo maken we een eenvoudige TODO applicatie, gebruik makend van het MVVM
                    Placeholder="Enter a new to-do..."
                    Text="">
             </Entry>
-            <Button Grid.Column="1" CornerRadius="45" Padding="0"
-                mi:MauiIcon.Value="{mi:FluentFilled Icon=AddCircle32Filled, IconSize=Large, IconColor={StaticResource White}}" />
+            <Button Grid.Column="1" CornerRadius="45" Padding="0" Text="+" />
         </Grid>
 
         <!-- List of To-Dos -->
