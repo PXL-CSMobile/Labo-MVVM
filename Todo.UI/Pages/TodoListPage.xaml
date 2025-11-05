@@ -8,6 +8,7 @@
              x:Class="Todo.UI.Pages.TodoListPage"
              Title="TodoListPage"
              x:DataType="vm:TodoListViewModel"
+             x:Name="TodoList"
              Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
@@ -22,6 +23,7 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior 
             EventName="Appearing"
+            BindingContext="{Binding Path=BindingContext, Source={x:Reference TodoList}, x:DataType=ContentPage}"
             Command="{Binding LoadDataCommand}"/>
     </ContentPage.Behaviors>
 
